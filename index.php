@@ -25,16 +25,18 @@ if ($conn->connect_error) {
 // use prepared statment to insert data
 $stmt = $conn->prepare("INSERT INTO shirtID (shirtName, shirtSize, Price) VALUES (?, ?, ?)");
 $stmt->bind_param("sss", $shirtName, $shirtSize, $Price);
+//validate form 
+if(!empty($_POST['shirtname']) && !empty($_POST['shirtsize']) && !empty($_POST['price'])){
 $shirtName = $_POST["shirtname"];
 $shirtSize=$_POST["shirtsize"];
 $Price = $_POST["price"];
 $stmt->execute();
-
+}
 
 //end
 
 //select data from database
-$sql = "SELECT id, shirtName, shirtSize, Price FROM shirtID";
+$sql = "SELECT id, shirtName, shirtSize, Price, RegisterDate  FROM shirtID";
 $result = $conn->query($sql);
 $conn->close();
 //end
@@ -44,7 +46,23 @@ $conn->close();
 <?php include 'style.css'; ?>
 	</style>
 <div id="main">
-  <div>
+ 
+	<div id="sideNav" style="background-color: white;">
+	  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+	
+
+		<div id="navbar">
+<?php
+ echo "<a href=https://twitter.com>My Twitter</a>"
+ ?>
+		  <a class="active" href="javascript:void(0)">Home</a>
+		  <a href="javascript:void(0)">News</a>
+		  <a href="javascript:void(0)">Contact</a>
+     
+		</div>
+	</div>
+	<div class="content">
+	   <div>
     <form method="post">
       Brand<input type="text" name="shirtname" id="shirt_name"><br>
       Size<input type="text" name="shirtsize" id="shirt_size"><br>
@@ -52,19 +70,6 @@ $conn->close();
       <input type="submit" value="Submit">
     </form>
   </div>
-	<div id="sideNav" style="background-color: white;">
-	  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-	
-
-		<div id="navbar">
-		  <a class="active" href="javascript:void(0)">Home</a>
-		  <a href="javascript:void(0)">News</a>
-		  <a href="javascript:void(0)">Contact</a>
-      <a href="www.quora.com">About</a>
-		</div>
-	</div>
-	<div class="content">
-	  
 	</div>
 	<div id="mySidenav" class="sidenav">
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -91,7 +96,8 @@ $conn->close();
         echo "<tr><td>" . $row["id"]."</td>";
         echo "<td>" . $row["shirtName"]."</td>";
          echo "<td>" . $row["shirtSize"]."</td>";
-          echo "<td>" . $row["Price"]."</td></tr>";
+          echo "<td>" . $row["Price"]."</td>";
+          echo "<td>" . $row["RegisterDate"]."</td></tr>";
     }
     echo "</table>";
 } else {
