@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"> 
 	<title>khyBEST</title>
 	<link rel="stylesheet" href="style.css">
 </head>
@@ -29,6 +29,7 @@
 	  <a href="#">Services</a>
 	  <a href="#">Clients</a>
 	  <a href="#">Contact</a>
+     <a href="#">Policy</a>
 	</div>
 
 
