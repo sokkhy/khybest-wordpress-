@@ -58,6 +58,7 @@ $conn->close();
 		  <a class="active" href="javascript:void(0)">Home</a>
 		  <a href="javascript:void(0)">News</a>
 		  <a href="javascript:void(0)">Contact</a>
+		  <a href="">About</a>
      
 		</div>
 	</div>
