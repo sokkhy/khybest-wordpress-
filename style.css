@@ -91,7 +91,11 @@ body {
     transition: margin-left .5s;
     padding: 16px;
 }
+/*
+Author: Thy Sokkhy;
+URI: http://www.omarlmeas.tk;
 
+*/
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}

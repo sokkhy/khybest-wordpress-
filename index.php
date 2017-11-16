@@ -46,9 +46,9 @@ $conn->close();
 <div id="main">
   <div>
     <form method="post">
-      <input type="text" name="shirtname" id="shirt_name">Brand
-      <input type="text" name="shirtsize" id="shirt_size">Size
-      <input type="text" name="price" id="shirt_price">Price
+      Brand<input type="text" name="shirtname" id="shirt_name"><br>
+      Size<input type="text" name="shirtsize" id="shirt_size"><br>
+      Price<input type="text" name="price" id="shirt_price">
       <input type="submit" value="Submit">
     </form>
   </div>
