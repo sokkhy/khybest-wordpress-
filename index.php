@@ -6,6 +6,26 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body onscroll="myFunction()">
+  <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname="productID";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+$sql = "SELECT id, shirtName, shirtSize, Price FROM shirtID";
+$result = $conn->query($sql);
+
+
+
+$conn->close();
+?>
 	<style>
 <?php include 'style.css'; ?>
 	</style>
@@ -18,6 +38,7 @@
 		  <a class="active" href="javascript:void(0)">Home</a>
 		  <a href="javascript:void(0)">News</a>
 		  <a href="javascript:void(0)">Contact</a>
+      <a href="www.quora.com">About</a>
 		</div>
 	</div>
 	<div class="content">
@@ -32,21 +53,29 @@
      <a href="#">Policy</a>
 	</div>
 
-
-  <h2>Sidenav Push Example</h2>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
-  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
+<div class="showItem">
+  <?php
+  if ($result->num_rows > 0) {
+    echo "<table>
+              <tr>
+                <th>ID</th>
+                <th>Branch</th>
+                <th>Size</th>
+                <th>Price</th>
+              </tr>";
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<tr><td>" . $row["id"]."</td>";
+        echo "<td>" . $row["shirtName"]."</td>";
+         echo "<td>" . $row["shirtSize"]."</td>";
+          echo "<td>" . $row["Price"]."</td></tr>";
+    }
+    echo "</table>";
+} else {
+    echo "0 results";
+}
+?>
+</div>
 
 </div>
 
