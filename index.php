@@ -6,11 +6,14 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 <body onscroll="myFunction()">
+
   <?php
+  // to connect to database
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname="productID";
+//end
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -19,17 +22,36 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
+// use prepared statment to insert data
+$stmt = $conn->prepare("INSERT INTO shirtID (shirtName, shirtSize, Price) VALUES (?, ?, ?)");
+$stmt->bind_param("sss", $shirtName, $shirtSize, $Price);
+$shirtName = $_POST["shirtname"];
+$shirtSize=$_POST["shirtsize"];
+$Price = $_POST["price"];
+$stmt->execute();
+
+
+//end
+
+//select data from database
 $sql = "SELECT id, shirtName, shirtSize, Price FROM shirtID";
 $result = $conn->query($sql);
-
-
-
 $conn->close();
+//end
 ?>
+
 	<style>
 <?php include 'style.css'; ?>
 	</style>
 <div id="main">
+  <div>
+    <form method="post">
+      <input type="text" name="shirtname" id="shirt_name">Brand
+      <input type="text" name="shirtsize" id="shirt_size">Size
+      <input type="text" name="price" id="shirt_price">Price
+      <input type="submit" value="Submit">
+    </form>
+  </div>
 	<div id="sideNav" style="background-color: white;">
 	  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 	
@@ -54,6 +76,7 @@ $conn->close();
 	</div>
 
 <div class="showItem">
+  <!-- retreive data from database to display -->
   <?php
   if ($result->num_rows > 0) {
     echo "<table>
@@ -75,6 +98,7 @@ $conn->close();
     echo "0 results";
 }
 ?>
+<!-- end -->
 </div>
 
 </div>
