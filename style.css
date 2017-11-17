@@ -1,3 +1,12 @@
+
+/*
+Theme Name: khyBEST
+Theme URI: http://www.omarlmeas.tk
+Description: For my assignment
+Author: Thy Sokkhy
+Author URI: http://omarlmeas.tk
+Version: 0.0
+*/
 body {
   margin: 0;
   font-size: 28px;
@@ -117,4 +126,59 @@ table tr td{
 #imgshirt{
 	width: 350px;
 	height:300px;
+}
+.nav{
+    width:750px;
+    background: #000;
+    display:block;
+    float:left;
+    position:relative;
+}
+ 
+.nav ul{
+    list-style:none;
+}
+ 
+.nav li{
+    float:left;
+    position:relative;
+}
+.nav a{
+    display:block;
+    text-decoration:none;
+    color:#fff;
+    padding:0 15px 10px 0;
+    font-size:13px; 
+    font-weight:bold;
+}
+ 
+.nav ul ul{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    float:left;
+    z-index:99999;
+    background: #212121;
+}
+ 
+.nav ul ul ul{
+    top: 30%;
+    left:100%;
+    background: #343434;
+}
+ 
+.nav ul ul a{
+    height:auto;
+    line-height:1em;
+    padding:10px;
+    width:130px;
+}
+ 
+.nav li:hover > a,.nav ul ul:hover > a{
+    color:#ccc;
+}
+ 
+.nav ul li:hover > ul{
+    display:block;
 }
