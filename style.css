@@ -104,3 +104,11 @@ table tr td{
 	border-collapse: collapse;
 	border: 1px solid black;
 }
+.thumb-image{
+	width: 200px;
+	height: 200px;
+}
+#image-holder{
+	width: 200px;
+	height: 200px;
+}
