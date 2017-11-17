@@ -49,13 +49,7 @@
 	<style>
 <?php include 'style.css'; ?>
 	</style>
-  <div id="main">
- 
-	 <div id="sideNav" style="background-color: white;">
-	  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-	
 
-		<div id="navbar">
 <!-- <?php
   //echo "<a href=https://twitter.com>My Twitter</a>"
  ?> -->
@@ -88,7 +82,7 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 && $imageFileType != "gif" && $imageFileType != "PNG" && $imageFileType != "JPG"  ) {
-    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    //echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
 // Check if $uploadOk is set to 0 by an error
@@ -103,7 +97,18 @@ if ($uploadOk == 0) {
     }
 }
 ?>
+ <div id="wrapper" >
+    <div id="header">
+        <h1><a href="<?php echo get_option('home'); ?>"><?php bloginfo('name'); ?></a></h1>
+    </div>
+</div>
+  <div id="main">
+ 
+   <div id="sideNav" style="background-color: white;">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+  
 
+    <div id="navbar">
 		  <a class="active" href="javascript:void(0)">Home</a>
 		  <a href="javascript:void(0)">News</a>
 		  <a href="javascript:void(0)">Contact</a>
@@ -189,7 +194,7 @@ if ($uploadOk == 0) {
           echo "<td>".
                     "<img id ='imgshirt' src='wp-content/themes/khybest/uploads/".$row['image']."'/>".        
                 "</td>";
-           echo "<td>" . $row["Price"]."</td>";
+          echo "<td>" . $row["Price"]."</td>";
           echo "<td>" . $row["RegisterDate"]."</td></tr>";
         }
         echo "</table>";
@@ -209,7 +214,8 @@ var sticky = navbar.offsetTop;
 
 function myFunction() {
   if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky")
+    navbar.classList.add("sticky");
+navbar.style.marginTop = "0px";
     
   } else {
     navbar.classList.remove("sticky");
@@ -228,35 +234,11 @@ function closeNav() {
     document.body.style.backgroundColor = "white";
 }
 </script>
-
- 
-    <div id="blog">
-        <?php if(have_posts()) : ?><?php while(have_posts()) : the_post(); ?>
-         
-        <div class="post">
-        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-         
-            <div class="entry">   
-                <?php the_post_thumbnail(); ?>
-                <?php the_content(); ?>
- 
-                <p class="postmetadata">
-                <?php _e('Filed under&#58;'); ?> <?php the_category(', ') ?> <?php _e('by'); ?> <?php  the_author(); ?><br />
-                <?php comments_popup_link('No Comments &#187;', '1 Comment &#187;', '% Comments &#187;'); ?> <?php edit_post_link('Edit', ' &#124; ', ''); ?>
-                </p>
- 
-            </div>
+<div class="navigation">
+        <?php posts_nav_link(); ?>
         </div>
-<?php endwhile; ?>
-         
-      <!--   <div class="navigation">
-        <?php //posts_nav_link(); ?>
-        </div> -->
-         
-        <?php endif; ?>
-    </div>
-
-
+        <?php get_header(); ?>
+<?php get_sidebar(); ?>
 <?php get_footer(); ?>
 </body>
 </html>
