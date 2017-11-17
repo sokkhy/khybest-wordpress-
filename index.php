@@ -106,7 +106,11 @@ if ($uploadOk == 0) {
 		  <a class="active" href="javascript:void(0)">Home</a>
 		  <a href="javascript:void(0)">News</a>
 		  <a href="javascript:void(0)">Contact</a>
+<<<<<<< HEAD
       <a href="about.php">About</a>
+=======
+		  <a href="">About</a>
+>>>>>>> d57ed726e1f7fd6addcbe3f1addb96b5372c0d77
      
 		</div>
 	</div>
