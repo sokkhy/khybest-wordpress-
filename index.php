@@ -26,20 +26,21 @@
       die("Connection failed: " . $conn->connect_error);
   } 
   // use prepared statment to insert data
-  $stmt = $conn->prepare("INSERT INTO shirtID (shirtName, shirtSize, Price) VALUES (?, ?, ?)");
-  $stmt->bind_param("sss", $shirtName, $shirtSize, $Price);
+  $stmt = $conn->prepare("INSERT INTO shirtID (shirtName, shirtSize, Price, image) VALUES (?, ?, ?,?)");
+  $stmt->bind_param("ssss", $shirtName, $shirtSize, $Price, $image);
   //validate form 
   if(!empty($_POST['shirtname']) && !empty($_POST['shirtsize']) && !empty($_POST['price'])){
     $shirtName = $_POST["shirtname"];
     $shirtSize=$_POST["shirtsize"];
     $Price = $_POST["price"];
+    $image= $_FILES["fileToUpload"]["name"];
     $stmt->execute();
   }
 
   //end
 
   //select data from database
-  $sql = "SELECT id, shirtName, shirtSize, Price, RegisterDate  FROM shirtID";
+  $sql = "SELECT id, shirtName, shirtSize, Price, RegisterDate, image  FROM shirtID";
   $result = $conn->query($sql);
   $conn->close();
   //end
@@ -76,7 +77,7 @@ if(isset($_POST["submit"])) {
 }
 // Check if file already exists
 if (file_exists($target_file)) {
-    echo "Sorry, file already exists.";
+    //echo "Sorry, file already exists.";
     $uploadOk = 0;
 }
 // Check file size
@@ -86,13 +87,13 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
 }
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
+&& $imageFileType != "gif" && $imageFileType != "PNG" && $imageFileType != "JPG"  ) {
     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
     $uploadOk = 0;
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
+    //echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
@@ -106,11 +107,10 @@ if ($uploadOk == 0) {
 		  <a class="active" href="javascript:void(0)">Home</a>
 		  <a href="javascript:void(0)">News</a>
 		  <a href="javascript:void(0)">Contact</a>
-<<<<<<< HEAD
+
       <a href="about.php">About</a>
-=======
-		  <a href="">About</a>
->>>>>>> d57ed726e1f7fd6addcbe3f1addb96b5372c0d77
+
+
      
 		</div>
 	</div>
@@ -132,7 +132,7 @@ if ($uploadOk == 0) {
     var imgPath = $(this)[0].value;
     var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
 
-    if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+    if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg" || extn =="PNG" || extn =="JPG") {
         if (typeof (FileReader) != "undefined") {
 
             var image_holder = $("#image-holder");
@@ -163,6 +163,7 @@ if ($uploadOk == 0) {
 	  <a href="#">Clients</a>
 	  <a href="#">Contact</a>
      <a href="#">Policy</a>
+
 	</div>
 
 <div class="showItem">
@@ -174,15 +175,22 @@ if ($uploadOk == 0) {
                   <th>ID</th>
                   <th>Branch</th>
                   <th>Size</th>
+                  <th>Image</th>
                   <th>Price</th>
+                  <th>Added Date</th>
                 </tr>";
       // output data of each row
       while($row = $result->fetch_assoc()) {
+            //header("Content-type: wp-content/themes/khybest/uploads/png");
+         
           echo "<tr><td>" . $row["id"]."</td>";
           echo "<td>" . $row["shirtName"]."</td>";
-           echo "<td>" . $row["shirtSize"]."</td>";
-            echo "<td>" . $row["Price"]."</td>";
-              echo "<td>" . $row["RegisterDate"]."</td></tr>";
+          echo "<td>" . $row["shirtSize"]."</td>";
+          echo "<td>".
+                    "<img id ='imgshirt' src='wp-content/themes/khybest/uploads/".$row['image']."'/>".        
+                "</td>";
+           echo "<td>" . $row["Price"]."</td>";
+          echo "<td>" . $row["RegisterDate"]."</td></tr>";
         }
         echo "</table>";
     } else {
