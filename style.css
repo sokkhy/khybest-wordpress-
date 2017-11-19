@@ -124,6 +124,8 @@ table tr td{
 #image-holder{
 	width: 200px;
 	height: 200px;
+  margin-top: -192px;
+    margin-left: 655px;
 }
 #imgshirt{
 	width: 350px;

@@ -14,7 +14,7 @@ session_start();
 </head>
 
 <body onscroll="myFunction()">
-<?php get_header(); ?>
+<!-- <?php //get_header(); ?> -->
 <?php
   // to connect to database
   $servername = "localhost";
