@@ -8,6 +8,8 @@ Author URI: http://omarlmeas.tk
 Version: 0.0
 */
 body {
+  width: 80%
+  height:500px;
   margin: 0;
   font-size: 28px;
 }
@@ -110,8 +112,8 @@ URI: http://www.omarlmeas.tk;
   .sidenav a {font-size: 18px;}
 }
 table tr td{
-	width: 50%;
-	height: 500px;
+	width: 20%;
+	height: 200px;
 	border-collapse: collapse;
 	border: 1px solid black;
 }

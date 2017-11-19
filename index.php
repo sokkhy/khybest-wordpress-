@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +10,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="style.css">
+
 </head>
+
 <body onscroll="myFunction()">
 <?php get_header(); ?>
 <?php
@@ -29,17 +34,18 @@
   $stmt = $conn->prepare("INSERT INTO shirtID (shirtName, shirtSize, Price, image) VALUES (?, ?, ?,?)");
   $stmt->bind_param("ssss", $shirtName, $shirtSize, $Price, $image);
   //validate form 
-  if(!empty($_POST['shirtname']) && !empty($_POST['shirtsize']) && !empty($_POST['price'])){
+  if(!empty($_POST['shirtname']) && !empty($_POST['shirtsize']) && !empty($_POST['price']) && !empty($_FILES["fileToUpload"]["name"])){
     $shirtName = $_POST["shirtname"];
     $shirtSize=$_POST["shirtsize"];
     $Price = $_POST["price"];
     $image= $_FILES["fileToUpload"]["name"];
     $stmt->execute();
+    header('Location:http://localhost:8082/wordpress/index.php');
   }
 
   //end
 
-  //select data from database
+  //retrie data from database
   $sql = "SELECT id, shirtName, shirtSize, Price, RegisterDate, image  FROM shirtID";
   $result = $conn->query($sql);
   $conn->close();
@@ -58,6 +64,7 @@ $target_dir = "wp-content/themes/khybest/uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -175,29 +182,33 @@ if ($uploadOk == 0) {
   <!-- retreive data from database to display -->
   <?php
     if ($result->num_rows > 0) {
-      echo "<table>
-                <tr>
-                  <th>ID</th>
-                  <th>Branch</th>
-                  <th>Size</th>
-                  <th>Image</th>
-                  <th>Price</th>
-                  <th>Added Date</th>
-                </tr>";
+      // echo "<div class='imgMain'>
+      //           <tr>
+      //             <th>ID</th>
+      //             <th>Branch</th>
+      //             <th>Size</th>
+      //             <th>Image</th>
+      //             <th>Price</th>
+      //             <th>Added Date</th>
+      //           </tr>";
       // output data of each row
+    	echo "<div class='imgMain'>";
       while($row = $result->fetch_assoc()) {
+
             //header("Content-type: wp-content/themes/khybest/uploads/png");
          
-          echo "<tr><td>" . $row["id"]."</td>";
-          echo "<td>" . $row["shirtName"]."</td>";
-          echo "<td>" . $row["shirtSize"]."</td>";
-          echo "<td>".
+         echo "<div class='subImg'"; 
+          //. $row["id"]."</td>";
+          echo "<p>" . $row["shirtName"]."</p>";
+          echo "<p>" . $row["shirtSize"]."</p>";
+          echo "<div>".
                     "<img id ='imgshirt' src='wp-content/themes/khybest/uploads/".$row['image']."'/>".        
-                "</td>";
-          echo "<td>" . $row["Price"]."</td>";
-          echo "<td>" . $row["RegisterDate"]."</td></tr>";
+                "</div>";
+          echo "<p>" . $row["Price"]."</p>";
+          //echo "<td>" . $row["RegisterDate"]."</td></tr>";
+          echo "</div>";
         }
-        echo "</table>";
+        echo "</div>";
     } else {
         echo "0 results";
     }
@@ -240,5 +251,14 @@ function closeNav() {
         <?php get_header(); ?>
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
+ 	<?php
+// remove all session variables
+session_unset(); 
+
+//destroy the session 
+session_destroy();
+
+echo "All session variables are now removed, and the session is destroyed." 
+?> 
 </body>
 </html>
