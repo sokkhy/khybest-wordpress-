@@ -18,21 +18,14 @@ session_start();
 <body onscroll="myFunction()">
 <!-- <?php //get_header(); ?> -->
 <?php
-  // to connect to database
-
-
-  //end
-
   //retrie data from database
   $sql = "SELECT id, shirtName, shirtSize, Price, RegisterDate, image  FROM shirtID";
   $result = $conn->query($sql);
   $conn->close();
   //end
 ?>
-
 	<style>
-
-<?php include 'style.css'; ?>
+    <?php include 'style.css'; ?>
 	</style>
 
 <!-- <?php
@@ -44,10 +37,10 @@ session_start();
         <h1><a href="<?php //echo get_option('home'); ?>"><?php //bloginfo('name'); ?></a></h1>
     </div>
 </div>
-  <div id="main">
+<div id="main">
  
-   <div id="sideNav" style="background-color: white;">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+   <div id="sideNav" style="background-color: white; z-index: 1;">
+     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
   
 
     <div id="navbar">
@@ -56,61 +49,18 @@ session_start();
 		  <a href="javascript:void(0)">Contact</a>
 
       <a href="about.php">About</a>
-
-
-     
 		</div>
 	</div>
-	<div class="content">
-	   <div>
-      <form action="upload.php" method="post"  enctype="multipart/form-data">
-        Brand: <input type="text" name="shirtname" id="shirt_name"><br>
-         Size:  <input type="text" name="shirtsize" id="shirt_size"><br>
-        Price: <input type="text" name="price" id="shirt_price">
-    <input type="file" name="fileToUpload" id="fileUpload">
-    <div id="image-holder">Display image</div>
-         <input type="submit" value="Submit">
-      </form>
+	
+	<div id="mySidenav" class="sidenav"> 
+  	<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="subManu">
+  	  <a href="#">Term of Use</a>
+  	  <a href="#">Privacy Policy</a>
+  	  <a href="#">Terms of Use</a>
+  	  <a href="#">DMCA</a>
+      <a href="#">RSS Feeds</a>
     </div>
-	</div>
-  <script>
-  $("#fileUpload").on('change', function () {
-
-    var imgPath = $(this)[0].value;
-    var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
-
-    if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg" || extn =="PNG" || extn =="JPG") {
-        if (typeof (FileReader) != "undefined") {
-
-            var image_holder = $("#image-holder");
-            image_holder.empty();
-
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $("<img />", {
-                    "src": e.target.result,
-                        "class": "thumb-image"
-                }).appendTo(image_holder);
-
-            }
-            image_holder.show();
-            reader.readAsDataURL($(this)[0].files[0]);
-        } else {
-            alert("This browser does not support FileReader.");
-        }
-    } else {
-        alert("Pls select only images");
-    }
-});
-</script>
-	<div id="mySidenav" class="sidenav">
-	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-	  <a href="#">About</a>
-	  <a href="#">Services</a>
-	  <a href="#">Clients</a>
-	  <a href="#">Contact</a>
-     <a href="#">Policy</a>
-
 	</div>
 
 <div class="showItem">
@@ -127,12 +77,12 @@ session_start();
       //             <th>Added Date</th>
       //           </tr>";
       // output data of each row
-    	echo "<div class='imgMain'>";
+    	echo "<div class='row imgMain'>";
       while($row = $result->fetch_assoc()) {
 
             //header("Content-type: wp-content/themes/khybest/uploads/png");
          
-         echo "<div class='subImg'"; 
+         echo "<div class='col-sm-4 subImg'"; 
           //. $row["id"]."</td>";
           echo "<p>" . $row["shirtName"]."</p>";
           echo "<p>" . $row["shirtSize"]."</p>";
@@ -180,12 +130,7 @@ function closeNav() {
     document.body.style.backgroundColor = "white";
 }
 </script>
-<div class="navigation">
-        <?php //posts_nav_link(); ?>
-        </div>
-        <?php //get_header(); ?>
-<?php //get_sidebar(); ?>
-<?php //get_about(); ?>
+
  	<?php
 // remove all session variables
 session_unset(); 

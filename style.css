@@ -33,6 +33,7 @@ body {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+
 }
 
 #navbar a:hover {
@@ -84,6 +85,7 @@ body {
     color: #818181;
     display: block;
     transition: 0.3s;
+    white-space: nowrap;
 }
 
 .sidenav a:hover {
@@ -122,10 +124,10 @@ table tr td{
 	height: 200px;
 }
 #image-holder{
-	width: 200px;
-	height: 200px;
-  margin-top: -192px;
-    margin-left: 655px;
+	  width: 200px;
+    height: 200px;
+    margin-top: 17px;
+    margin-left: 0px;
 }
 #imgshirt{
 	width: 350px;
@@ -185,4 +187,11 @@ table tr td{
  
 .nav ul li:hover > ul{
     display:block;
+}
+.form-group{
+  margin-left: auto;
+   padding: 10px;
+}
+.subImg{
+  /*display: flex;*/
 }

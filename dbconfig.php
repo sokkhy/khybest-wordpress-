@@ -22,6 +22,6 @@ $username = "root";
     $Price = $_POST["price"];
     $image= $_FILES["fileToUpload"]["name"];
     $stmt->execute();
-    header('Location:http://localhost:8082/khyBEST/index.php');
+    header('Location:http://localhost:8082/khybest_local/index.php');
   }
 ?>
